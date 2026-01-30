@@ -1,0 +1,564 @@
+"use client";
+
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail } from "lucide-react";
+
+// Real Logos from Devicon
+const TechIcons = {
+    HTML: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" fill className="object-contain" />
+        </div>
+    ),
+    CSS: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" fill className="object-contain" />
+        </div>
+    ),
+    JS: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" fill className="object-contain" />
+        </div>
+    ),
+    MongoDB: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" fill className="object-contain" />
+        </div>
+    ),
+    React: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" fill className="object-contain" />
+        </div>
+    ),
+    NextJS: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" fill className="object-contain bg-white rounded-full" />
+        </div>
+    ),
+    Python: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" fill className="object-contain" />
+        </div>
+    ),
+    PyTorch: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" fill className="object-contain" />
+        </div>
+    ),
+    Bootstrap: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" fill className="object-contain" />
+        </div>
+    ),
+    Git: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" fill className="object-contain" />
+        </div>
+    ),
+    Bash: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash" fill className="object-contain" />
+        </div>
+    ),
+    NodeJS: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" fill className="object-contain" />
+        </div>
+    ),
+    n8n: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            {/* Using SimpleIcons CDN as reliable alternative */}
+            <Image src="https://cdn.simpleicons.org/n8n/FF6E40" alt="n8n" fill className="object-contain" unoptimized />
+        </div>
+    ),
+    Express: (props: any) => (
+        <div {...props} style={{ ...props.style, position: "relative" }}>
+            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express" fill className="object-contain bg-white rounded-full p-1" />
+        </div>
+    )
+};
+
+// 3D Card Component for Tools
+// Uses Motion Values to track mouse position relative to the card center
+const ToolCard = ({ tool, index }: { tool: any, index: number }) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const rotateX = useTransform(y, [-100, 100], [30, -30]);
+    const rotateY = useTransform(x, [-100, 100], [-30, 30]);
+
+    function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+        x.set(xPct * 200); // 200 is mostly arbitrary scaling for the rotation intensity
+        y.set(yPct * 200);
+    }
+
+    function handleMouseLeave() {
+        x.set(0);
+        y.set(0);
+    }
+
+    return (
+        <motion.div
+            style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+            }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.05 }}
+            className="relative group perspective-1000 w-28 h-28 md:w-36 md:h-36"
+        >
+            <motion.div
+                animate={{
+                    y: [0, -10, 0],
+                }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.2, // Stagger float animation
+                }}
+                className="w-full h-full flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:border-white/20 group-hover:bg-white/10 transition-all duration-300 backdrop-blur-sm shadow-xl"
+                style={{ transformStyle: "preserve-3d" }}
+            >
+                <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-15 blur-2xl transition-opacity duration-500 rounded-2xl ${tool.color}`} />
+
+                <div className="relative z-10 transform-style-3d group-hover:scale-110 transition-transform duration-300">
+                    <tool.Icon className={`w-10 h-10 md:w-14 md:h-14 ${tool.color}`} style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.2))" }} />
+                </div>
+
+                <span className="text-xs md:text-sm font-medium text-white/50 group-hover:text-white transition-colors relative z-10 transform-style-3d translate-z-10">
+                    {tool.name}
+                </span>
+            </motion.div>
+        </motion.div>
+    );
+};
+
+export default function ContentSection() {
+    const [selectedProject, setSelectedProject] = useState<any | null>(null);
+    const [selectedAchievement, setSelectedAchievement] = useState<any | null>(null);
+
+    const projects = [
+        {
+            title: "KrishiSaathi",
+            description: "SIH 2025 Winner. A revolutionary agriculture tech platform.",
+            fullDetails: "KrishiSaathi provides farmers with AI-driven insights for crop health, real-time market prices, and direct connection to buyers. Utilizing advanced computer vision for disease detection. Winner of Smart India Hackathon 2025.",
+            image: "/projects/krishisaathi.jpeg",
+            tags: ["Next.js", "Python", "AI/ML"],
+            link: "#"
+        },
+        {
+            title: "College ERP",
+            description: "Comprehensive management system for educational institutions.",
+            fullDetails: "A full-stack ERP system handling attendance, grading, fee management, and library services. Built with a robust microservices architecture for scalability.",
+            image: "/projects/college-erp-v1.png",
+            tags: ["React", "Node.js", "MongoDB"],
+            link: "#"
+        },
+        {
+            title: "Suraksha AI",
+            description: "Advanced safety monitoring system using computer vision.",
+            fullDetails: "Suraksha AI leverages edge computing to process video feeds properly, detecting accidents, fire, and unauthorized access with 99% accuracy.",
+            image: "/projects/suraksha-ai-v1.png",
+            tags: ["OpenCV", "TensorFlow", "FastAPI"],
+            link: "#"
+        },
+        {
+            title: "Automated Website Builder",
+            description: "AI-powered platform that builds websites from simple text prompts.",
+            fullDetails: "A revolutionary tool that generates production-ready fully responsive websites in seconds Using advanced LLMs and component libraries. Features include real-time preview, code export, and custom theming.",
+            image: "/projects/automated-website-builder.png",
+            tags: ["Next.js", "OpenAI", "Tailwind"],
+            link: "#"
+        },
+    ];
+
+    const achievements = [
+        {
+            title: "ICDCIT 2026 Winner",
+            description: "International Conference on Distributed Computing and Internet Technology.",
+            fullDetails: "Awarded as a Winner in the ICDCIT Hackathon 2026. Recognized by top industry experts for building an innovative solution under pressure.",
+            emoji: "🏆",
+            image: "/achievements/icdcit-winner.jpeg",
+            link: "https://www.linkedin.com/posts/himanshu-mish21_icdcit-icdcithackathon2026-secondrunnersup-activity-7421523446880235520-Jgb3?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
+        },
+        {
+            title: "SIH 2025 Winner",
+            description: "Smart India Hackathon - First Prize in Agriculture Domain.",
+            fullDetails: "Led the team to victory in the nation-wide Smart India Hackathon. Developed 'KrishiSaathi', a comprehensive solution for farmers, praised for its practical application and user-friendly interface.",
+            emoji: "🥇",
+            image: "/achievements/sih-winner.jpeg",
+            link: "https://www.linkedin.com/posts/himanshu-mish21_sih2025-smartindiahackathon-winner-activity-7405287430670540802-waXc?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
+        },
+        {
+            title: "Hackathon Finalist",
+            description: "Finalist in 6+ Major Hackathons including Cyber Peace.",
+            fullDetails: "Consistently ranked among the top teams in prestigious global hackathons. Demonstrated rapid prototyping skills and effective problem-solving under pressure.",
+            emoji: "🥈",
+            image: "/achievements/hackathon-finalist.jpeg",
+            link: "#"
+        },
+    ];
+
+    const experiences = [
+        {
+            role: "Co-founder & CTO",
+            company: "Servixo",
+            period: "Jan 2026 - Current",
+            description: "Leading the technical strategy and product development of a scalable service platform. Managing a team of developers and overseeing the entire stack including cloud infrastructure and AI integration.",
+            current: true
+        },
+        {
+            role: "Web Developer Intern",
+            company: "Code Speedy Pvt Ltd",
+            period: "June - August 2025",
+            description: "Developed and maintained responsive web applications using React and Node.js. Optimized frontend performance by 40% and implemented secure authentication flows.",
+            current: false
+        }
+    ];
+
+    const tools = [
+        { name: "HTML", Icon: TechIcons.HTML, color: "text-orange-500" },
+        { name: "CSS", Icon: TechIcons.CSS, color: "text-blue-500" },
+        { name: "JavaScript", Icon: TechIcons.JS, color: "text-yellow-400" },
+        { name: "MongoDB", Icon: TechIcons.MongoDB, color: "text-green-500" },
+        { name: "React", Icon: TechIcons.React, color: "text-cyan-400" },
+        { name: "Next.js", Icon: TechIcons.NextJS, color: "text-white" },
+        { name: "Python", Icon: TechIcons.Python, color: "text-blue-300" },
+        { name: "PyTorch", Icon: TechIcons.PyTorch, color: "text-orange-600" },
+        { name: "Node.js", Icon: TechIcons.NodeJS, color: "text-green-600" },
+        { name: "Express", Icon: TechIcons.Express, color: "text-gray-200" },
+        { name: "Git", Icon: TechIcons.Git, color: "text-red-500" },
+        { name: "Git Bash", Icon: TechIcons.Bash, color: "text-gray-400" },
+        { name: "n8n", Icon: TechIcons.n8n, color: "text-orange-400" },
+    ];
+
+    const marqueeText = "Creative Developer • Full Stack Developer • Automation Engineer • UI/UX Designer • ";
+
+    return (
+        <div className="relative z-10 bg-[#050505] text-white overflow-hidden pb-12">
+
+            {/* Marquee Section */}
+            {/* Adjusted margin to move animation down as requested */}
+            <div className="w-full py-6 md:py-8 overflow-hidden border-y border-white/5 bg-white/5 backdrop-blur-sm mb-24 mt-24 relative z-20">
+                <div className="flex whitespace-nowrap">
+                    <motion.div
+                        className="flex gap-12 text-2xl md:text-5xl font-bold uppercase tracking-widest leading-none"
+                        animate={{ x: [0, -1000] }}
+                        transition={{
+                            repeat: Infinity,
+                            ease: "linear",
+                            duration: 20,
+                        }}
+                    >
+                        {[...Array(8)].map((_, i) => (
+                            <React.Fragment key={i}>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/90 to-white/50 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                                    {marqueeText}
+                                </span>
+                            </React.Fragment>
+                        ))}
+                    </motion.div>
+                </div>
+            </div>
+
+            <div className="max-w-[90rem] mx-auto px-4 md:px-6 flex flex-col gap-40">
+
+                {/* Projects Section */}
+                <section id="projects" className="scroll-mt-32">
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-6xl font-bold mb-16 text-center tracking-tight"
+                    >
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Projects</span>
+                    </motion.h3>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                        {projects.map((project, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
+                                onClick={() => setSelectedProject(project)}
+                                className="group relative bg-[#0a0a0a] border border-white/5 rounded-3xl overflow-hidden hover:border-blue-500/30 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-blue-900/20 flex flex-col h-[300px] md:h-[400px]"
+                            >
+                                <div className="h-[60%] relative overflow-hidden bg-white/5">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 opacity-80" />
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+                                    />
+                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                        <ArrowUpRight className="w-5 h-5 text-white" />
+                                    </div>
+                                </div>
+                                <div className="p-4 md:p-6 relative z-20 flex-grow flex flex-col justify-end bg-gradient-to-t from-[#0a0a0a] to-transparent -mt-12">
+                                    <div className="flex gap-2 mb-3 flex-wrap">
+                                        {project.tags.slice(0, 2).map(tag => (
+                                            <span key={tag} className="text-[9px] md:text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-white/10 border border-white/5 rounded-full text-white/80">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <h4 className="text-lg md:text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors truncate">{project.title}</h4>
+                                    <p className="text-white/50 text-xs md:text-sm line-clamp-2 leading-relaxed">
+                                        {project.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Modern Experience Timeline */}
+                <section id="experience" className="scroll-mt-32 relative">
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-6xl font-bold mb-24 text-center tracking-tight"
+                    >
+                        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Experience</span>
+                    </motion.h3>
+
+                    <div className="max-w-4xl mx-auto relative px-4">
+                        {/* Timeline Line */}
+                        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-transparent" />
+
+                        {experiences.map((exp, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                                className={`relative flex flex-col md:flex-row gap-8 mb-16 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                            >
+                                {/* Center Dot */}
+                                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-black border-2 border-blue-500 z-10 shadow-[0_0_15px_rgba(59,130,246,0.6)]">
+                                    {exp.current && (
+                                        <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-75" />
+                                    )}
+                                </div>
+
+                                {/* Content Card */}
+                                <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'}`}>
+                                    <div className="group relative p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all duration-500 backdrop-blur-xl overflow-hidden hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:-translate-y-1">
+                                        {/* Glow Effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                        <div className="relative z-10 flex flex-col items-start gap-4">
+                                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-300">
+                                                <div className={`w-1.5 h-1.5 rounded-full ${exp.current ? 'bg-green-400 animate-pulse' : 'bg-white/30'}`} />
+                                                {exp.period}
+                                            </span>
+
+                                            <div>
+                                                <h4 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 mb-1">{exp.role}</h4>
+                                                <p className="text-lg font-medium text-blue-400">{exp.company}</p>
+                                            </div>
+
+                                            <p className="text-white/60 leading-relaxed text-sm/relaxed">
+                                                {exp.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Achievements Section */}
+                <section id="achievements" className="scroll-mt-32">
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-6xl font-bold mb-20 text-center tracking-tight"
+                    >
+                        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Achievements</span>
+                    </motion.h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                        {achievements.map((item, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                onClick={() => setSelectedAchievement(item)}
+                                className="group p-6 md:p-8 border border-white/5 rounded-3xl bg-gradient-to-b from-white/5 to-transparent hover:from-white/10 hover:to-white/5 transition-all duration-500 relative overflow-hidden flex flex-col justify-between hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-yellow-500/10"
+                            >
+                                <div>
+                                    <div className="mb-6 text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">
+                                        {item.emoji}
+                                    </div>
+                                    <h4 className="text-xl md:text-2xl font-bold mb-3 text-white">{item.title}</h4>
+                                    <p className="text-white/50 text-sm leading-relaxed line-clamp-2">{item.description}</p>
+                                </div>
+                                <div className="mt-6 relative h-40 md:h-52 w-full rounded-2xl overflow-hidden border border-white/5 bg-black/20">
+                                    <Image src={item.image} alt={item.title} fill className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                        <ArrowUpRight className="w-5 h-5 text-white" />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* 3D Animated Tools & Skills */}
+                <section id="tools" className="scroll-mt-32 pb-20">
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-6xl font-bold mb-20 text-center tracking-tight"
+                    >
+                        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500">Tools</span>
+                    </motion.h3>
+
+                    <div className="flex flex-wrap justify-center gap-6 md:gap-12 max-w-6xl mx-auto perspective-1000">
+                        {tools.map((tool, i) => (
+                            <ToolCard key={i} tool={tool} index={i} />
+                        ))}
+                    </div>
+                </section>
+
+            </div>
+
+            {/* Project Details Modal */}
+            <AnimatePresence>
+                {selectedProject && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedProject(null)}
+                            className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                        />
+                        <motion.div
+                            layoutId={`project-${selectedProject.title}`}
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                            className="relative w-full max-w-5xl bg-[#0f0f0f] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl z-50 flex flex-col md:flex-row max-h-[90vh]"
+                        >
+                            <div className="relative h-64 md:h-auto md:w-[45%] shrink-0 overflow-hidden">
+                                <Image
+                                    src={selectedProject.image}
+                                    alt={selectedProject.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-r" />
+                            </div>
+                            <div className="p-5 md:p-12 overflow-y-auto flex-1 flex flex-col relative bg-[#0f0f0f]">
+                                <button
+                                    onClick={() => setSelectedProject(null)}
+                                    className="absolute top-6 right-6 p-2 bg-white/5 hover:bg-white/10 rounded-full text-white/70 hover:text-white transition-colors z-10 border border-white/5"
+                                >
+                                    <X className="w-6 h-6" />
+                                </button>
+
+                                <h3 className="text-2xl md:text-5xl font-bold text-white mb-6 tracking-tight">{selectedProject.title}</h3>
+
+                                <div className="flex gap-3 mb-8 flex-wrap">
+                                    {selectedProject.tags.map((tag: string) => (
+                                        <span key={tag} className="text-xs uppercase font-bold tracking-widest px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <div className="prose prose-invert prose-lg max-w-none text-white/70 mb-10 leading-relaxed">
+                                    <p>{selectedProject.fullDetails}</p>
+                                </div>
+
+                                <div className="mt-auto pt-6 border-t border-white/10">
+                                    <a href={selectedProject.link} className="inline-flex w-full md:w-auto justify-center items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]">
+                                        View Live Project <ArrowUpRight className="w-5 h-5" />
+                                    </a>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+            {/* Achievement Details Modal (Reusing/Duplicating logic for independent control) */}
+            <AnimatePresence>
+                {selectedAchievement && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedAchievement(null)}
+                            className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                        />
+                        <motion.div
+                            layoutId={`achievement-${selectedAchievement.title}`}
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                            className="relative w-full max-w-4xl bg-[#0f0f0f] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl z-50 flex flex-col md:flex-row max-h-[80vh]"
+                        >
+                            <div className="relative h-48 md:h-auto md:w-[40%] shrink-0 overflow-hidden bg-white/5">
+                                <Image
+                                    src={selectedAchievement.image}
+                                    alt={selectedAchievement.title}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:bg-gradient-to-r" />
+                            </div>
+                            <div className="p-5 md:p-10 overflow-y-auto flex-1 flex flex-col relative bg-[#0f0f0f]">
+                                <button
+                                    onClick={() => setSelectedAchievement(null)}
+                                    className="absolute top-6 right-6 p-2 bg-white/5 hover:bg-white/10 rounded-full text-white/70 hover:text-white transition-colors z-10 border border-white/5"
+                                >
+                                    <X className="w-6 h-6" />
+                                </button>
+
+                                <h3 className="text-2xl md:text-4xl font-bold text-white mb-4 tracking-tight">{selectedAchievement.title}</h3>
+
+                                <div className="prose prose-invert prose-lg max-w-none text-white/70 mb-8 leading-relaxed">
+                                    <p className="text-xl text-white mb-4">{selectedAchievement.description}</p>
+                                    <p>{selectedAchievement.fullDetails}</p>
+                                </div>
+
+                                <div className="mt-auto pt-6 border-t border-white/10">
+                                    <a href={selectedAchievement.link} className="inline-flex w-full md:w-auto justify-center items-center gap-3 px-8 py-4 bg-yellow-500 text-black rounded-full font-bold text-lg hover:bg-yellow-400 transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:shadow-[0_0_30px_rgba(234,179,8,0.5)]">
+                                        View Award <ArrowUpRight className="w-5 h-5" />
+                                    </a>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
