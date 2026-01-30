@@ -243,6 +243,14 @@ export default function ContentSection() {
             image: "/achievements/hackathon-finalist.jpeg",
             link: "#"
         },
+        {
+            title: "Vice President",
+            description: "Khwaab Society at KIIT - Leading student welfare initiatives.",
+            fullDetails: "Serving as Vice President of Khwaab Society, orchestrating large-scale events and social initiatives. Leading a team of 50+ members to drive positive change within the university and surrounding community.",
+            emoji: "🎖️",
+            image: "/achievements/khwaab-vp.jpeg",
+            link: "#"
+        },
     ];
 
     const experiences = [
@@ -429,7 +437,7 @@ export default function ContentSection() {
                     >
                         My <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Achievements</span>
                     </motion.h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                         {achievements.map((item, i) => (
                             <motion.div
                                 key={i}
