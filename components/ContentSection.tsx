@@ -184,6 +184,38 @@ export default function ContentSection() {
             tags: ["Next.js", "OpenAI", "Tailwind"],
             link: "#"
         },
+        {
+            title: "Gesture Based Racing",
+            description: "Control Hill Climb Racing using hand gestures via webcam.",
+            fullDetails: "An interactive game controller using computer vision. Players control the vehicle's throttle and brakes using hand gestures captured in real-time, built with Python and OpenCV for low-latency processing.",
+            image: "/projects/gesture-game.png",
+            tags: ["Python", "OpenCV", "CVZone"],
+            link: "#"
+        },
+        {
+            title: "Campus Incident Reporter",
+            description: "Secure platform for reporting campus safety incidents.",
+            fullDetails: "A confidential reporting system enabling students to report incidents safely. Features real-time admin dashboards, anonymous reporting channels, and status tracking for efficient resolution.",
+            image: "/projects/campus-reporter.png",
+            tags: ["React", "Node.js", "MongoDB"],
+            link: "#"
+        },
+        {
+            title: "FitTrack Pro",
+            description: "Comprehensive gym management and fitness tracking solution.",
+            fullDetails: "All-in-one fitness platform for users to track workouts, nutrition, and progress. Includes gym management features for class scheduling, member management, and subscription handling.",
+            image: "/projects/fitness-tracker.png",
+            tags: ["Next.js", "Tailwind", "PostgreSQL"],
+            link: "#"
+        },
+        {
+            title: "Coming Soon",
+            description: "Something exciting is currently in development.",
+            fullDetails: "We are constantly working on new and innovative ideas. Stay tuned for our next big project release!",
+            image: "/projects/coming-soon.png",
+            tags: ["In Progress", "Innovation"],
+            link: "#"
+        },
     ];
 
     const achievements = [
