@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Scrollytelling Portfolio",
+  title: "Himanshu Mishra",
   description: "A cinematic scrolling experience.",
 };
 
