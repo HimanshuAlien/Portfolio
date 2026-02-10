@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, DM_Sans } from "next/font/google"; // Changed fonts
 import "./globals.css";
 
 import Header from "@/components/Header";
 import BackgroundMusic from "@/components/BackgroundMusic";
 
-
-
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap", // Best practice for font loading
+  variable: "--font-space",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,11 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans antialiased`}>
         <BackgroundMusic />
         <Header />
         {children}
       </body>
-    </html >
+    </html>
   );
 }

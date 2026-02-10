@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail } from "lucide-react";
+import LeetCodeStats from "./LeetCodeStats";
 
 // Real Logos from Devicon
 const TechIcons = {
@@ -82,72 +83,46 @@ const TechIcons = {
 
 // 3D Card Component for Tools
 // Uses Motion Values to track mouse position relative to the card center
+// Simplified ToolCard without 3D tilt for performance
 const ToolCard = ({ tool, index }: { tool: any, index: number }) => {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const rotateX = useTransform(y, [-100, 100], [30, -30]);
-    const rotateY = useTransform(x, [-100, 100], [-30, 30]);
-
-    function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
-        const rect = event.currentTarget.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-        x.set(xPct * 200); // 200 is mostly arbitrary scaling for the rotation intensity
-        y.set(yPct * 200);
-    }
-
-    function handleMouseLeave() {
-        x.set(0);
-        y.set(0);
-    }
-
     return (
         <motion.div
-            style={{
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="relative group perspective-1000 w-28 h-28 md:w-36 md:h-36"
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            className="w-24 h-24 md:w-32 md:h-32 relative group"
         >
-            <motion.div
-                animate={{
-                    y: [0, -10, 0],
-                }}
-                transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: index * 0.2, // Stagger float animation
-                }}
-                className="w-full h-full flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:border-white/20 group-hover:bg-white/10 transition-all duration-300 backdrop-blur-sm shadow-xl"
-                style={{ transformStyle: "preserve-3d" }}
-            >
+            <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:border-white/20 group-hover:bg-white/10 transition-all duration-300 backdrop-blur-sm shadow-xl group-hover:scale-110">
                 <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-15 blur-2xl transition-opacity duration-500 rounded-2xl ${tool.color}`} />
 
-                <div className="relative z-10 transform-style-3d group-hover:scale-110 transition-transform duration-300">
-                    <tool.Icon className={`w-10 h-10 md:w-14 md:h-14 ${tool.color}`} style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.2))" }} />
+                <div className="relative z-10">
+                    <tool.Icon className={`w-8 h-8 md:w-12 md:h-12 ${tool.color}`} style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.2))" }} />
                 </div>
 
-                <span className="text-xs md:text-sm font-medium text-white/50 group-hover:text-white transition-colors relative z-10 transform-style-3d translate-z-10">
+                <span className="text-[10px] md:text-sm font-medium text-white/50 group-hover:text-white transition-colors relative z-10">
                     {tool.name}
                 </span>
-            </motion.div>
+            </div>
         </motion.div>
     );
 };
 
 export default function ContentSection() {
+    const [ghContributions, setGhContributions] = useState(0);
+
+    useEffect(() => {
+        // Fetch GitHub Contributions
+        fetch('https://github-contributions-api.jogruber.de/v4/HimanshuAlien?y=last')
+            .then(res => res.json())
+            .then(data => {
+                if (data?.total?.lastYear) {
+                    setGhContributions(data.total.lastYear);
+                }
+            })
+            .catch(err => console.error("GitHub Fetch Error:", err));
+    }, []);
+
     const [selectedProject, setSelectedProject] = useState<any | null>(null);
     const [selectedAchievement, setSelectedAchievement] = useState<any | null>(null);
 
@@ -336,7 +311,7 @@ export default function ContentSection() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group relative bg-[#0a0a0a] border border-white/5 rounded-3xl overflow-hidden hover:border-blue-500/30 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-blue-900/20 flex flex-col h-[300px] md:h-[400px]"
+                                className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-blue-500/30 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-blue-900/20 flex flex-col h-[300px] md:h-[400px]"
                             >
                                 <div className="h-[60%] relative overflow-hidden bg-white/5">
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 opacity-80" />
@@ -346,14 +321,14 @@ export default function ContentSection() {
                                         fill
                                         className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
                                     />
-                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                         <ArrowUpRight className="w-5 h-5 text-white" />
                                     </div>
                                 </div>
                                 <div className="p-4 md:p-6 relative z-20 flex-grow flex flex-col justify-end bg-gradient-to-t from-[#0a0a0a] to-transparent -mt-12">
-                                    <div className="flex gap-2 mb-3 flex-wrap">
-                                        {project.tags.slice(0, 2).map(tag => (
-                                            <span key={tag} className="text-[9px] md:text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-white/10 border border-white/5 rounded-full text-white/80">
+                                    <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
+                                        {project.tags.slice(0, 3).map(tag => (
+                                            <span key={tag} className="text-[10px] md:text-xs uppercase font-medium tracking-[0.2em] text-white/60 border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-colors">
                                                 {tag}
                                             </span>
                                         ))}
@@ -401,22 +376,20 @@ export default function ContentSection() {
 
                                 {/* Content Card */}
                                 <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'}`}>
-                                    <div className="group relative p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all duration-500 backdrop-blur-xl overflow-hidden hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:-translate-y-1">
-                                        {/* Glow Effect */}
-                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="group relative pl-6 border-l border-white/10 hover:border-blue-500 transition-all duration-300">
+                                        {/* Glow Effect Removed/Subtler */}
 
-                                        <div className="relative z-10 flex flex-col items-start gap-4">
-                                            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-300">
-                                                <div className={`w-1.5 h-1.5 rounded-full ${exp.current ? 'bg-green-400 animate-pulse' : 'bg-white/30'}`} />
+                                        <div className="relative z-10 flex flex-col items-start gap-2">
+                                            <span className="text-xs font-mono text-blue-400/80 mb-1 tracking-wider uppercase">
                                                 {exp.period}
                                             </span>
 
                                             <div>
-                                                <h4 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 mb-1">{exp.role}</h4>
-                                                <p className="text-lg font-medium text-blue-400">{exp.company}</p>
+                                                <h4 className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-blue-200 transition-colors">{exp.role}</h4>
+                                                <p className="text-lg font-medium text-white/50">{exp.company}</p>
                                             </div>
 
-                                            <p className="text-white/60 leading-relaxed text-sm/relaxed">
+                                            <p className="text-white/60 leading-relaxed text-sm/relaxed mt-2 max-w-md">
                                                 {exp.description}
                                             </p>
                                         </div>
@@ -446,7 +419,7 @@ export default function ContentSection() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: i * 0.1 }}
                                 onClick={() => setSelectedAchievement(item)}
-                                className="group p-6 md:p-8 border border-white/5 rounded-3xl bg-gradient-to-b from-white/5 to-transparent hover:from-white/10 hover:to-white/5 transition-all duration-500 relative overflow-hidden flex flex-col justify-between hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-yellow-500/10"
+                                className="group p-6 md:p-8 border border-white/5 bg-gradient-to-b from-white/5 to-transparent hover:from-white/10 hover:to-white/5 transition-all duration-500 relative overflow-hidden flex flex-col justify-between hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-yellow-500/10"
                             >
                                 <div>
                                     <div className="mb-6 text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">
@@ -455,14 +428,141 @@ export default function ContentSection() {
                                     <h4 className="text-xl md:text-2xl font-bold mb-3 text-white">{item.title}</h4>
                                     <p className="text-white/50 text-sm leading-relaxed line-clamp-2">{item.description}</p>
                                 </div>
-                                <div className="mt-6 relative h-40 md:h-52 w-full rounded-2xl overflow-hidden border border-white/5 bg-black/20">
+                                <div className="mt-6 relative h-40 md:h-52 w-full overflow-hidden border border-white/5 bg-black/20">
                                     <Image src={item.image} alt={item.title} fill className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
-                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                         <ArrowUpRight className="w-5 h-5 text-white" />
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
+                    </div>
+                </section>
+
+                {/* Stats & Credentials Section */}
+                {/* Stats & Credentials Section */}
+                {/* Stats & Credentials Section */}
+                <section id="stats" className="scroll-mt-32 pb-32">
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-4xl md:text-6xl font-bold mb-24 text-center tracking-tight"
+                    >
+                        Stats & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Credentials</span>
+                    </motion.h3>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+                        {/* Custom LeetCode Stats Component */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                        >
+                            <LeetCodeStats />
+                        </motion.div>
+
+                        {/* GitHub Stats - Using Activity Graph for better reliability */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-xl relative group overflow-hidden flex flex-col justify-between h-full"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                            <div className="flex justify-between items-start mb-6 relative z-10">
+                                <div>
+                                    <h4 className="text-2xl font-bold text-white font-display mb-1">GitHub</h4>
+                                    <p className="text-purple-400 text-xs font-mono uppercase tracking-widest">Open Source</p>
+                                </div>
+                                <ArrowUpRight className="w-6 h-6 text-white/20 group-hover:text-purple-400 transition-colors" />
+                            </div>
+
+                            <div className="relative z-10 w-full overflow-hidden rounded-lg opacity-80 group-hover:opacity-100 transition-all pt-2">
+                                {/* Reverted to Activity Graph as requested, using Emerald theme */}
+                                <img
+                                    src="https://github-readme-activity-graph.vercel.app/graph?username=HimanshuAlien&theme=react-dark&bg_color=0a0a0a&hide_border=true&area=true&color=10b981&custom_title=Activity%20Graph"
+                                    alt="GitHub Stats"
+                                    className="w-full object-cover"
+                                />
+                                <div className="flex justify-between items-center px-2 mt-2">
+                                    <span className="text-[10px] uppercase font-mono text-white/30">
+                                        Contributions
+                                    </span>
+                                    <span className="text-xs font-bold text-emerald-400">
+                                        {ghContributions > 0 ? `${ghContributions} Last Year` : 'Active'}
+                                    </span>
+                                </div>
+                            </div>
+                            <a href="https://github.com/HimanshuAlien" target="_blank" className="absolute inset-0 z-20" aria-label="View GitHub Profile"></a>
+                        </motion.div>
+                    </div>
+
+                    {/* Technical List Certifications */}
+                    <div className="max-w-4xl mx-auto">
+                        <motion.h4
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            className="text-sm font-mono text-white/40 uppercase tracking-widest mb-8 border-b border-white/10 pb-4"
+                        >
+                            Certifications
+                        </motion.h4>
+
+                        <div className="space-y-4">
+                            {/* Certification 1 */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="group flex flex-col md:flex-row md:items-center justify-between p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] rounded-lg transition-colors cursor-default"
+                            >
+                                <div className="flex items-center gap-6">
+                                    <div className="h-12 w-12 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                                        <div className="relative w-8 h-8">
+                                            <Image src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" fill className="object-contain" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white font-display">Java Specialization</h3>
+                                        <p className="text-white/40 text-sm mt-1">Data Structures & Algorithms</p>
+                                    </div>
+                                </div>
+                                <div className="mt-4 md:mt-0">
+                                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/60">
+                                        Udemy
+                                    </span>
+                                </div>
+                            </motion.div>
+
+                            {/* Certification 2 */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.1 }}
+                                className="group flex flex-col md:flex-row md:items-center justify-between p-6 border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] rounded-lg transition-colors cursor-default"
+                            >
+                                <div className="flex items-center gap-6">
+                                    <div className="h-12 w-12 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity p-2 bg-white/5 rounded-full border border-white/10">
+                                        <Cloud className="w-full h-full text-blue-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white font-display">System Design</h3>
+                                        <p className="text-white/40 text-sm mt-1">Distributed Architectures</p>
+                                    </div>
+                                </div>
+                                <div className="mt-4 md:mt-0">
+                                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/60">
+                                        Coursera
+                                    </span>
+                                </div>
+                            </motion.div>
+                        </div>
+
                     </div>
                 </section>
 
@@ -524,9 +624,9 @@ export default function ContentSection() {
 
                                 <h3 className="text-2xl md:text-5xl font-bold text-white mb-6 tracking-tight">{selectedProject.title}</h3>
 
-                                <div className="flex gap-3 mb-8 flex-wrap">
+                                <div className="flex flex-wrap gap-4 mb-8">
                                     {selectedProject.tags.map((tag: string) => (
-                                        <span key={tag} className="text-xs uppercase font-bold tracking-widest px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400">
+                                        <span key={tag} className="text-sm font-mono text-blue-400 border border-blue-500/30 px-3 py-1 hover:bg-blue-500/10 transition-colors">
                                             {tag}
                                         </span>
                                     ))}
