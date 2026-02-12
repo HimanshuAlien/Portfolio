@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Youtube } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -29,14 +29,14 @@ export default function Footer() {
                     {/* Social Links & Info */}
                     <div className="md:text-right flex flex-col md:items-end gap-8">
                         <div className="flex gap-6">
-                            <a href="#" className="p-3 bg-white/5 rounded-full hover:bg-white/20 transition-colors">
+                            <a href="https://github.com/HimanshuAlien" target="_blank" className="p-3 bg-white/5 rounded-full hover:bg-white/20 transition-colors">
                                 <Github size={24} />
                             </a>
-                            <a href="#" className="p-3 bg-white/5 rounded-full hover:bg-white/20 transition-colors">
+                            <a href="https://www.linkedin.com/in/himanshu-mish21/" target="_blank" className="p-3 bg-white/5 rounded-full hover:bg-white/20 transition-colors">
                                 <Linkedin size={24} />
                             </a>
-                            <a href="#" className="p-3 bg-white/5 rounded-full hover:bg-white/20 transition-colors">
-                                <Twitter size={24} />
+                            <a href="https://www.youtube.com/@theamdgamer5318" target="_blank" className="p-3 bg-white/5 rounded-full hover:bg-white/20 transition-colors">
+                                <Youtube size={24} />
                             </a>
                         </div>
                         <div className="text-sm text-white/30">

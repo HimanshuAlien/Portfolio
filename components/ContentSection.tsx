@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
-import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail } from "lucide-react";
+import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail, Medal, Award, Crown } from "lucide-react";
 import LeetCodeStats from "./LeetCodeStats";
 
 // Real Logos from Devicon
@@ -131,39 +131,39 @@ export default function ContentSection() {
             title: "KrishiSaathi",
             description: "SIH 2025 Winner. A revolutionary agriculture tech platform.",
             fullDetails: "KrishiSaathi provides farmers with AI-driven insights for crop health, real-time market prices, and direct connection to buyers. Utilizing advanced computer vision for disease detection. Winner of Smart India Hackathon 2025.",
-            image: "/projects/krishisaathi.jpeg",
-            tags: ["Next.js", "Python", "AI/ML"],
-            link: "#"
+            image: "/projects/krishisaathi.png",
+            tags: ["Twilio", "ML", "HTML"],
+            link: "https://farmerhimu.vercel.app/"
         },
         {
             title: "College ERP",
             description: "Comprehensive management system for educational institutions.",
             fullDetails: "A full-stack ERP system handling attendance, grading, fee management, and library services. Built with a robust microservices architecture for scalability.",
-            image: "/projects/college-erp-v1.png",
-            tags: ["React", "Node.js", "MongoDB"],
-            link: "#"
+            image: "/projects/college-erp-v2.png",
+            tags: ["Hugging Face", "HTML", "CSS", "JS", "MongoDB", "Node.js"],
+            link: "https://github.com/HimanshuAlien/college-management-system"
         },
         {
             title: "Suraksha AI",
             description: "Advanced safety monitoring system using computer vision.",
             fullDetails: "Suraksha AI leverages edge computing to process video feeds properly, detecting accidents, fire, and unauthorized access with 99% accuracy.",
-            image: "/projects/suraksha-ai-v1.png",
-            tags: ["OpenCV", "TensorFlow", "FastAPI"],
+            image: "/projects/suraksha-ai-v2.png",
+            tags: ["PyTorch", "ML", "FastAPI"],
             link: "#"
         },
         {
             title: "Automated Website Builder",
             description: "AI-powered platform that builds websites from simple text prompts.",
             fullDetails: "A revolutionary tool that generates production-ready fully responsive websites in seconds Using advanced LLMs and component libraries. Features include real-time preview, code export, and custom theming.",
-            image: "/projects/automated-website-builder.png",
-            tags: ["Next.js", "OpenAI", "Tailwind"],
+            image: "/projects/automated-website-builder-final.png",
+            tags: ["n8n", "React", "Tailwind"],
             link: "#"
         },
         {
             title: "Gesture Based Racing",
             description: "Control Hill Climb Racing using hand gestures via webcam.",
             fullDetails: "An interactive game controller using computer vision. Players control the vehicle's throttle and brakes using hand gestures captured in real-time, built with Python and OpenCV for low-latency processing.",
-            image: "/projects/gesture-game.png",
+            image: "/projects/gesture-game-v2.png",
             tags: ["Python", "OpenCV", "CVZone"],
             link: "#"
         },
@@ -171,25 +171,25 @@ export default function ContentSection() {
             title: "Campus Incident Reporter",
             description: "Secure platform for reporting campus safety incidents.",
             fullDetails: "A confidential reporting system enabling students to report incidents safely. Features real-time admin dashboards, anonymous reporting channels, and status tracking for efficient resolution.",
-            image: "/projects/campus-reporter.png",
-            tags: ["React", "Node.js", "MongoDB"],
+            image: "/projects/campus-reporter-v2.png",
+            tags: ["HTML", "Node.js", "MongoDB"],
             link: "#"
         },
         {
             title: "FitTrack Pro",
             description: "Comprehensive gym management and fitness tracking solution.",
             fullDetails: "All-in-one fitness platform for users to track workouts, nutrition, and progress. Includes gym management features for class scheduling, member management, and subscription handling.",
-            image: "/projects/fitness-tracker.png",
-            tags: ["Next.js", "Tailwind", "PostgreSQL"],
+            image: "/projects/fitness-tracker-v2.png",
+            tags: ["Google Auth", "Fitbit", "HTML", "CSS", "JS", "MongoDB", "FastAPI"],
             link: "#"
         },
         {
-            title: "Coming Soon",
-            description: "Something exciting is currently in development.",
-            fullDetails: "We are constantly working on new and innovative ideas. Stay tuned for our next big project release!",
-            image: "/projects/coming-soon.png",
-            tags: ["In Progress", "Innovation"],
-            link: "#"
+            title: "Fixxora",
+            description: "A dynamic service startup dedicated to tool and appliance repair.",
+            fullDetails: "Fixxora is a dynamic service startup dedicated to repairing tools and household appliances. We connect users with skilled professionals for reliable, on-demand maintenance solutions. Currently in development, our goal is to provide a seamless and transparent service experience.",
+            image: "/projects/coming-soon.jpeg",
+            tags: ["Startup", "Service", "App"],
+            link: "https://fixxora-app.vercel.app/"
         },
     ];
 
@@ -199,7 +199,7 @@ export default function ContentSection() {
             description: "International Conference on Distributed Computing and Internet Technology.",
             fullDetails: "Awarded as a Winner in the ICDCIT Hackathon 2026. Recognized by top industry experts for building an innovative solution under pressure.",
             emoji: "🏆",
-            image: "/achievements/icdcit-winner.jpeg",
+            image: "/achievements/icdcit-winner-v2.jpeg",
             link: "https://www.linkedin.com/posts/himanshu-mish21_icdcit-icdcithackathon2026-secondrunnersup-activity-7421523446880235520-Jgb3?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
         },
         {
@@ -207,7 +207,7 @@ export default function ContentSection() {
             description: "Smart India Hackathon - First Prize in Agriculture Domain.",
             fullDetails: "Led the team to victory in the nation-wide Smart India Hackathon. Developed 'KrishiSaathi', a comprehensive solution for farmers, praised for its practical application and user-friendly interface.",
             emoji: "🥇",
-            image: "/achievements/sih-winner.jpeg",
+            image: "/achievements/sih-winner-v2.jpeg",
             link: "https://www.linkedin.com/posts/himanshu-mish21_sih2025-smartindiahackathon-winner-activity-7405287430670540802-waXc?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
         },
         {
@@ -215,7 +215,7 @@ export default function ContentSection() {
             description: "Finalist in 6+ Major Hackathons including Cyber Peace.",
             fullDetails: "Consistently ranked among the top teams in prestigious global hackathons. Demonstrated rapid prototyping skills and effective problem-solving under pressure.",
             emoji: "🥈",
-            image: "/achievements/hackathon-finalist.jpeg",
+            image: "/achievements/hackathon-finalist-v2.jpeg",
             link: "#"
         },
         {
@@ -223,7 +223,7 @@ export default function ContentSection() {
             description: "Khwaab Society at KIIT - Leading student welfare initiatives.",
             fullDetails: "Serving as Vice President of Khwaab Society, orchestrating large-scale events and social initiatives. Leading a team of 50+ members to drive positive change within the university and surrounding community.",
             emoji: "🎖️",
-            image: "/achievements/khwaab-vp.jpeg",
+            image: "/achievements/khwaab-vp-v2.jpeg",
             link: "#"
         },
     ];
@@ -231,7 +231,7 @@ export default function ContentSection() {
     const experiences = [
         {
             role: "Co-founder & CTO",
-            company: "Servixo",
+            company: "Fixxora",
             period: "Jan 2026 - Current",
             description: "Leading the technical strategy and product development of a scalable service platform. Managing a team of developers and overseeing the entire stack including cloud infrastructure and AI integration.",
             current: true
@@ -264,11 +264,11 @@ export default function ContentSection() {
     const marqueeText = "Creative Developer • Full Stack Developer • Automation Engineer • UI/UX Designer • ";
 
     return (
-        <div className="relative z-10 bg-[#050505] text-white overflow-hidden pb-12">
+        <div className="relative z-10 bg-[#050505] text-white overflow-hidden pb-12" >
 
             {/* Marquee Section */}
             {/* Adjusted margin to move animation down as requested */}
-            <div className="w-full py-6 md:py-8 overflow-hidden border-y border-white/5 bg-white/5 backdrop-blur-sm mb-24 mt-24 relative z-20">
+            <div className="w-full py-6 md:py-8 overflow-hidden border-y border-white/5 bg-white/5 backdrop-blur-sm mb-24 mt-24 relative z-20" >
                 <div className="flex whitespace-nowrap">
                     <motion.div
                         className="flex gap-12 text-2xl md:text-5xl font-bold uppercase tracking-widest leading-none"
@@ -288,7 +288,7 @@ export default function ContentSection() {
                         ))}
                     </motion.div>
                 </div>
-            </div>
+            </div >
 
             <div className="max-w-[90rem] mx-auto px-4 md:px-6 flex flex-col gap-40">
 
@@ -311,14 +311,14 @@ export default function ContentSection() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-blue-500/30 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-blue-900/20 flex flex-col h-[300px] md:h-[400px]"
+                                className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-white/5 flex flex-col h-[300px] md:h-[400px] rounded-2xl"
                             >
                                 <div className="h-[60%] relative overflow-hidden bg-white/5">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 opacity-80" />
                                     <Image
                                         src={project.image}
                                         alt={project.title}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
                                     />
                                     <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -328,12 +328,12 @@ export default function ContentSection() {
                                 <div className="p-4 md:p-6 relative z-20 flex-grow flex flex-col justify-end bg-gradient-to-t from-[#0a0a0a] to-transparent -mt-12">
                                     <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
                                         {project.tags.slice(0, 3).map(tag => (
-                                            <span key={tag} className="text-[10px] md:text-xs uppercase font-medium tracking-[0.2em] text-white/60 border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-colors">
+                                            <span key={tag} className="px-3 py-1 text-[10px] md:text-xs font-medium text-white/70 bg-white/5 border border-white/10 rounded-full backdrop-blur-md hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-200 transition-all duration-300 shadow-sm hover:shadow-blue-500/20">
                                                 {tag}
                                             </span>
                                         ))}
                                     </div>
-                                    <h4 className="text-lg md:text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors truncate">{project.title}</h4>
+                                    <h4 className="text-lg md:text-2xl font-bold mb-2 text-white group-hover:text-white transition-colors truncate">{project.title}</h4>
                                     <p className="text-white/50 text-xs md:text-sm line-clamp-2 leading-relaxed">
                                         {project.description}
                                     </p>
@@ -355,8 +355,18 @@ export default function ContentSection() {
                     </motion.h3>
 
                     <div className="max-w-4xl mx-auto relative px-4">
-                        {/* Timeline Line */}
-                        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-transparent" />
+                        {/* Continuous Flowing Beam Animation */}
+                        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/10 overflow-hidden">
+                            <motion.div
+                                className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-transparent via-blue-500 to-transparent"
+                                animate={{ top: ['-30%', '130%'] }}
+                                transition={{
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                }}
+                            />
+                        </div>
 
                         {experiences.map((exp, index) => (
                             <motion.div
@@ -419,7 +429,7 @@ export default function ContentSection() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: i * 0.1 }}
                                 onClick={() => setSelectedAchievement(item)}
-                                className="group p-6 md:p-8 border border-white/5 bg-gradient-to-b from-white/5 to-transparent hover:from-white/10 hover:to-white/5 transition-all duration-500 relative overflow-hidden flex flex-col justify-between hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-yellow-500/10"
+                                className="group p-6 md:p-8 border border-white/5 bg-gradient-to-b from-white/5 to-transparent hover:from-white/10 hover:to-white/5 transition-all duration-500 relative overflow-hidden flex flex-col justify-between hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-yellow-500/10 rounded-2xl"
                             >
                                 <div>
                                     <div className="mb-6 text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">
@@ -428,8 +438,14 @@ export default function ContentSection() {
                                     <h4 className="text-xl md:text-2xl font-bold mb-3 text-white">{item.title}</h4>
                                     <p className="text-white/50 text-sm leading-relaxed line-clamp-2">{item.description}</p>
                                 </div>
-                                <div className="mt-6 relative h-40 md:h-52 w-full overflow-hidden border border-white/5 bg-black/20">
-                                    <Image src={item.image} alt={item.title} fill className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                                <div className="mt-6 relative h-40 md:h-52 w-full overflow-hidden border border-white/5 bg-transparent">
+                                    <Image
+                                        src={item.image}
+                                        alt={item.title}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover group-hover:scale-105 transition-all duration-500"
+                                    />
                                     <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                         <ArrowUpRight className="w-5 h-5 text-white" />
                                     </div>
@@ -469,7 +485,7 @@ export default function ContentSection() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-xl relative group overflow-hidden flex flex-col justify-between h-full"
+                            className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-2xl relative group overflow-hidden flex flex-col justify-between h-full"
                         >
                             <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -637,9 +653,15 @@ export default function ContentSection() {
                                 </div>
 
                                 <div className="mt-auto pt-6 border-t border-white/10">
-                                    <a href={selectedProject.link} className="inline-flex w-full md:w-auto justify-center items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]">
-                                        View Live Project <ArrowUpRight className="w-5 h-5" />
-                                    </a>
+                                    {selectedProject.link === "#" ? (
+                                        <button disabled className="inline-flex w-full md:w-auto justify-center items-center gap-3 px-8 py-4 bg-white/10 text-white/50 rounded-full font-bold text-lg cursor-not-allowed border border-white/5">
+                                            Not Deployed
+                                        </button>
+                                    ) : (
+                                        <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="inline-flex w-full md:w-auto justify-center items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]">
+                                            View Live Project <ArrowUpRight className="w-5 h-5" />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
@@ -699,6 +721,6 @@ export default function ContentSection() {
                     </div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 }

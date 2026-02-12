@@ -121,7 +121,7 @@ export default function LeetCodeStats() {
     }
 
     return (
-        <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-xl relative overflow-hidden group h-full flex flex-col justify-between">
+        <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-2xl relative overflow-hidden group h-full flex flex-col justify-between">
             <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Header */}
@@ -160,8 +160,8 @@ export default function LeetCodeStats() {
                 </h5>
 
                 {stats?.submissionCalendar ? (
-                    <div className="flex gap-1 overflow-x-auto pb-1 mask-linear">
-                        <div className="grid grid-rows-7 grid-flow-col gap-0.5 w-full relative" style={{ direction: 'rtl' }}>
+                    <div className="flex gap-1 overflow-x-hidden pb-1">
+                        <div className="grid grid-rows-7 grid-flow-col gap-1 w-full relative">
                             {heatmapData.map((day, i) => {
                                 let colorClass = 'bg-white/5';
                                 if (day.count > 0) colorClass = 'bg-green-900/40';
@@ -172,7 +172,7 @@ export default function LeetCodeStats() {
                                 return (
                                     <div
                                         key={i}
-                                        className={`w-1.5 h-1.5 rounded-[0.5px] ${colorClass}`}
+                                        className={`w-2 h-2 rounded-sm ${colorClass}`}
                                         title={`${day.date.toDateString()}: ${day.count} submissions`}
                                     />
                                 )
