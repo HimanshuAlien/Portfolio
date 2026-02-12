@@ -318,7 +318,6 @@ export default function ContentSection() {
                                         src={project.image}
                                         alt={project.title}
                                         fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
                                     />
                                     <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -443,7 +442,6 @@ export default function ContentSection() {
                                         src={item.image}
                                         alt={item.title}
                                         fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover group-hover:scale-105 transition-all duration-500"
                                     />
                                     <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
