@@ -311,9 +311,9 @@ export default function ContentSection() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-white/5 flex flex-col h-[300px] md:h-[400px] rounded-2xl"
+                                className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-white/5 flex flex-col h-auto md:h-[400px] rounded-2xl"
                             >
-                                <div className="h-[60%] relative overflow-hidden bg-white/5">
+                                <div className="h-48 md:h-[60%] relative overflow-hidden bg-white/5">
                                     <Image
                                         src={project.image}
                                         alt={project.title}
@@ -324,7 +324,7 @@ export default function ContentSection() {
                                         <ArrowUpRight className="w-5 h-5 text-white" />
                                     </div>
                                 </div>
-                                <div className="p-4 md:p-6 relative z-20 flex-grow flex flex-col justify-end bg-gradient-to-t from-[#0a0a0a] to-transparent -mt-12">
+                                <div className="p-4 md:p-6 relative z-20 flex-grow flex flex-col justify-end bg-gradient-to-t from-[#0a0a0a] to-transparent mt-0 md:-mt-12">
                                     <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
                                         {project.tags.slice(0, 3).map(tag => (
                                             <span key={tag} className="px-3 py-1 text-[10px] md:text-xs font-medium text-white/70 bg-white/5 border border-white/10 rounded-full backdrop-blur-md hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-200 transition-all duration-300 shadow-sm hover:shadow-blue-500/20">
