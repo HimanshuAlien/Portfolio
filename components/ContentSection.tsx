@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
-import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail, Medal, Award, Crown } from "lucide-react";
+import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail, Medal, Award, Crown, ArrowLeft, ArrowRight } from "lucide-react";
 import LeetCodeStats from "./LeetCodeStats";
 
 // Real Logos from Devicon
@@ -211,6 +211,14 @@ export default function ContentSection() {
             link: "https://www.linkedin.com/posts/himanshu-mish21_sih2025-smartindiahackathon-winner-activity-7405287430670540802-waXc?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
         },
         {
+            title: "MLSA Hackathon Winner",
+            description: "Winner of the Microsoft Learn Student Ambassadors (MLSA) Hackathon.",
+            fullDetails: "Secured first place in the MLSA Hackathon by developing an outstanding and innovative project. Commended for technical excellence and rapid prototyping.",
+            emoji: "🏅",
+            image: "/achievements/mlsa.jpeg",
+            link: "#"
+        },
+        {
             title: "Hackathon Finalist",
             description: "Finalist in 6+ Major Hackathons including Cyber Peace.",
             fullDetails: "Consistently ranked among the top teams in prestigious global hackathons. Demonstrated rapid prototyping skills and effective problem-solving under pressure.",
@@ -261,7 +269,7 @@ export default function ContentSection() {
         { name: "n8n", Icon: TechIcons.n8n, color: "text-orange-400" },
     ];
 
-    const marqueeText = "Creative Developer • Full Stack Developer • Automation Engineer • UI/UX Designer • ";
+    const marqueeText = "Agentic AI • Full Stack Developer • Automation Engineer • Gen AI Engineer • ";
 
     return (
         <div className="relative z-10 bg-[#050505] text-white overflow-hidden pb-12" >
@@ -302,110 +310,105 @@ export default function ContentSection() {
                     >
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Projects</span>
                     </motion.h3>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {projects.map((project, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 40 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
+                                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-white/5 flex flex-col h-auto md:h-[400px] rounded-2xl"
+                                className="group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:-translate-y-2 h-full"
                             >
-                                <div className="h-48 md:h-[60%] relative overflow-hidden bg-white/5">
-                                    <Image
-                                        src={project.image}
-                                        alt={project.title}
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-                                    />
-                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                        <ArrowUpRight className="w-5 h-5 text-white" />
+                                {/* Padded Image Container for Modern Look */}
+                                <div className="p-3 pb-0">
+                                    <div className="h-56 md:h-48 relative overflow-hidden rounded-2xl bg-white/5">
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                                        
+                                        <div className="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-full opacity-0 transform translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                            <ArrowUpRight className="w-4 h-4 text-white" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="p-4 md:p-6 relative z-20 flex-grow flex flex-col justify-end bg-gradient-to-t from-[#0a0a0a] to-transparent mt-0 md:-mt-12">
-                                    <div className="flex flex-wrap gap-x-4 gap-y-2 mb-4">
+                                
+                                <div className="flex flex-col flex-grow p-6 pt-5">
+                                    <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-blue-400 transition-colors">
+                                        {project.title}
+                                    </h4>
+                                    <p className="text-white/50 text-sm leading-relaxed mb-6 line-clamp-3">
+                                        {project.description}
+                                    </p>
+                                    
+                                    <div className="flex flex-wrap gap-2 mt-auto">
                                         {project.tags.slice(0, 3).map(tag => (
-                                            <span key={tag} className="px-3 py-1 text-[10px] md:text-xs font-medium text-white/70 bg-white/5 border border-white/10 rounded-full backdrop-blur-md hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-200 transition-all duration-300 shadow-sm hover:shadow-blue-500/20">
+                                            <span key={tag} className="px-3 py-1 text-[10px] font-mono text-white/70 bg-white/5 border border-white/10 rounded-full group-hover:bg-blue-500/10 group-hover:border-blue-500/30 group-hover:text-blue-300 transition-colors duration-300 uppercase tracking-widest">
                                                 {tag}
                                             </span>
                                         ))}
                                     </div>
-                                    <h4 className="text-lg md:text-2xl font-bold mb-2 text-white group-hover:text-white transition-colors truncate">{project.title}</h4>
-                                    <p className="text-white/50 text-xs md:text-sm line-clamp-2 leading-relaxed">
-                                        {project.description}
-                                    </p>
                                 </div>
                             </motion.div>
                         ))}
                     </div>
                 </section>
 
-                {/* Modern Experience Timeline */}
-                <section id="experience" className="scroll-mt-32 relative">
+                {/* Compact Modern Experience Section */}
+                <section id="experience" className="scroll-mt-32 pb-24">
                     <motion.h3
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl md:text-6xl font-bold mb-24 text-center tracking-tight"
+                        className="text-4xl md:text-5xl font-bold mb-12 text-center tracking-tight"
                     >
-                        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Experience</span>
+                        Experience<span className="text-white/20">.</span>
                     </motion.h3>
 
-                    <div className="max-w-4xl mx-auto relative px-4">
-                        {/* Continuous Flowing Beam Animation */}
-                        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/10 overflow-hidden">
-                            <motion.div
-                                className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-transparent via-blue-500 to-transparent"
-                                animate={{ top: ['-30%', '130%'] }}
-                                transition={{
-                                    duration: 3,
-                                    repeat: Infinity,
-                                    ease: "linear",
-                                }}
-                            />
-                        </div>
+                    <div className="max-w-3xl mx-auto px-4 md:px-0">
+                        <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl">
+                            <div className="relative border-l border-white/10 ml-2 md:ml-4 space-y-10 md:space-y-14 py-2">
+                                {/* Flowing Animated Beam */}
+                                <motion.div
+                                    className="absolute top-0 -left-[1px] w-[2px] h-[40%] bg-gradient-to-b from-transparent via-blue-500 to-transparent z-0"
+                                    animate={{ top: ['-40%', '140%'] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                />
 
-                        {experiences.map((exp, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.2 }}
-                                className={`relative flex flex-col md:flex-row gap-8 mb-16 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-                            >
-                                {/* Center Dot */}
-                                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-black border-2 border-blue-500 z-10 shadow-[0_0_15px_rgba(59,130,246,0.6)]">
-                                    {exp.current && (
-                                        <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-75" />
-                                    )}
-                                </div>
-
-                                {/* Content Card */}
-                                <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'}`}>
-                                    <div className="group relative pl-6 border-l border-white/10 hover:border-blue-500 transition-all duration-300">
-                                        {/* Glow Effect Removed/Subtler */}
-
-                                        <div className="relative z-10 flex flex-col items-start gap-2">
-                                            <span className="text-xs font-mono text-blue-400/80 mb-1 tracking-wider uppercase">
+                                {experiences.map((exp, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        className="relative pl-6 md:pl-8 group"
+                                    >
+                                        {/* Compact Timeline Dot */}
+                                        <div className="absolute left-0 top-1.5 w-3 h-3 -translate-x-[0.4rem] rounded-full bg-[#0a0a0a] border-2 border-white/20 group-hover:border-blue-500 transition-colors duration-500 z-10" />
+                                        
+                                        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-2">
+                                            <div>
+                                                <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors duration-300">{exp.role}</h4>
+                                                <p className="text-white/60 font-medium">{exp.company}</p>
+                                            </div>
+                                            <span className="text-xs md:text-sm font-mono text-white/40 uppercase tracking-widest shrink-0 mt-1 md:mt-0">
                                                 {exp.period}
                                             </span>
-
-                                            <div>
-                                                <h4 className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-blue-200 transition-colors">{exp.role}</h4>
-                                                <p className="text-lg font-medium text-white/50">{exp.company}</p>
-                                            </div>
-
-                                            <p className="text-white/60 leading-relaxed text-sm/relaxed mt-2 max-w-md">
-                                                {exp.description}
-                                            </p>
                                         </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
+                                        
+                                        <p className="text-white/50 text-sm md:text-base leading-relaxed mt-3">
+                                            {exp.description}
+                                        </p>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -415,38 +418,50 @@ export default function ContentSection() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl md:text-6xl font-bold mb-20 text-center tracking-tight"
+                        className="text-4xl md:text-6xl font-bold mb-16 text-center tracking-tight"
                     >
                         My <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Achievements</span>
                     </motion.h3>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {achievements.map((item, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedAchievement(item)}
-                                className="group p-6 md:p-8 border border-white/5 bg-gradient-to-b from-white/5 to-transparent hover:from-white/10 hover:to-white/5 transition-all duration-500 relative overflow-hidden flex flex-col justify-between hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-yellow-500/10 rounded-2xl"
+                                className="group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(234,179,8,0.05)] hover:-translate-y-2 h-full"
                             >
-                                <div>
-                                    <div className="mb-6 text-5xl md:text-6xl group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">
-                                        {item.emoji}
+                                {/* Padded Image Container for Modern Look */}
+                                <div className="p-3 pb-0">
+                                    <div className="h-56 md:h-48 relative overflow-hidden rounded-2xl bg-white/5">
+                                        <Image
+                                            src={item.image}
+                                            alt={item.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                                        
+                                        {/* Floating Emoji */}
+                                        <div className="absolute top-4 left-4 z-20 text-3xl md:text-4xl drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] filter transition-transform duration-300 group-hover:scale-110">
+                                            {item.emoji}
+                                        </div>
+
+                                        <div className="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-full opacity-0 transform translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                            <ArrowUpRight className="w-4 h-4 text-white" />
+                                        </div>
                                     </div>
-                                    <h4 className="text-xl md:text-2xl font-bold mb-3 text-white">{item.title}</h4>
-                                    <p className="text-white/50 text-sm leading-relaxed line-clamp-2">{item.description}</p>
                                 </div>
-                                <div className="mt-6 relative h-40 md:h-52 w-full overflow-hidden border border-white/5 bg-transparent">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        fill
-                                        className="object-cover group-hover:scale-105 transition-all duration-500"
-                                    />
-                                    <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md p-2 border border-white/10 opacity-0 transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                        <ArrowUpRight className="w-5 h-5 text-white" />
-                                    </div>
+                                
+                                <div className="flex flex-col flex-grow p-6 pt-5">
+                                    <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-yellow-400 transition-colors">
+                                        {item.title}
+                                    </h4>
+                                    <p className="text-white/50 text-sm leading-relaxed line-clamp-3">
+                                        {item.description}
+                                    </p>
                                 </div>
                             </motion.div>
                         ))}
