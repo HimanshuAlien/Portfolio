@@ -216,7 +216,7 @@ export default function ContentSection() {
             fullDetails: "Secured first place in the MLSA Hackathon by developing an outstanding and innovative project. Commended for technical excellence and rapid prototyping.",
             emoji: "🏅",
             image: "/achievements/mlsa.jpeg",
-            link: "#"
+            link: "https://www.linkedin.com/posts/himanshu-mish21_hackolympus-mlsa-hackathonwin-activity-7445857190411726848-xUTg?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
         },
         {
             title: "Hackathon Finalist",
