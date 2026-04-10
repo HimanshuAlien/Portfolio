@@ -352,7 +352,7 @@ export default function ContentSection() {
                     title: "Cyber Peace Finalist", 
                     description: "Global Cyber Peace Challenge Finalist - Ranked among top security research teams.",
                     image: "/achievements/Cyberpeace.jpg",
-                    emoji: "🛡️"
+                    emoji: ""
                 },
                 { 
                     title: "India-Israel Hackathon", 
@@ -364,19 +364,19 @@ export default function ContentSection() {
                     title: "Meta X Finalist", 
                     description: "Finalist in the Meta PyTorch Hackathon for AI-driven safety solutions.",
                     image: "", 
-                    emoji: "♾️" 
+                    emoji: "" 
                 },
                 { 
                     title: "Deloitte Hackathon", 
                     description: "Recognized as a Finalist in Deloitte's National Innovation Challenge.",
                     image: "", 
-                    emoji: "📊" 
+                    emoji: "" 
                 },
                 { 
                     title: "SDIS Finalist", 
                     description: "Finalist in the Sustainable Development Innovation Summit Hackathon.",
                     image: "/achievements/hackathon-finalist-v2.jpeg", 
-                    emoji: "🌱" 
+                    emoji: "" 
                 },
             ],
             link: "#"
@@ -401,10 +401,10 @@ export default function ContentSection() {
 
     const experiences = [
         {
-            role: "Co-founder & CTO",
+            role: "Tech Lead",
             company: "Fixxora",
-            period: "Jan 2026 - Current",
-            description: "Leading the technical strategy and product development of a scalable service platform. Managing a team of developers and overseeing the entire stack including cloud infrastructure and AI integration.",
+            period: "Jan - March 2026",
+            description: "Developed a comprehensive mobile application for a client focused on tool and appliance repair solutions.",
             current: true
         },
         {
