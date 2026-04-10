@@ -310,7 +310,7 @@ export default function ContentSection() {
                     >
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Projects</span>
                     </motion.h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                         {projects.map((project, index) => (
                             <motion.div
                                 key={index}
@@ -319,11 +319,11 @@ export default function ContentSection() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:-translate-y-2 h-full"
+                                className="group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:-translate-y-2 h-full"
                             >
                                 {/* Padded Image Container for Modern Look */}
-                                <div className="p-3 pb-0">
-                                    <div className="h-56 md:h-48 relative overflow-hidden rounded-2xl bg-white/5">
+                                <div className="p-2 md:p-3 pb-0">
+                                    <div className="h-32 md:h-48 relative overflow-hidden rounded-xl md:rounded-2xl bg-white/5">
                                         <Image
                                             src={project.image}
                                             alt={project.title}
@@ -338,17 +338,17 @@ export default function ContentSection() {
                                     </div>
                                 </div>
                                 
-                                <div className="flex flex-col flex-grow p-6 pt-5">
-                                    <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-blue-400 transition-colors">
+                                <div className="flex flex-col flex-grow p-4 md:p-6 pt-4 md:pt-5">
+                                    <h4 className="text-lg md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-blue-400 transition-colors line-clamp-1">
                                         {project.title}
                                     </h4>
-                                    <p className="text-white/50 text-sm leading-relaxed mb-6 line-clamp-3">
+                                    <p className="text-white/50 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 line-clamp-2 md:line-clamp-3">
                                         {project.description}
                                     </p>
                                     
-                                    <div className="flex flex-wrap gap-2 mt-auto">
-                                        {project.tags.slice(0, 3).map(tag => (
-                                            <span key={tag} className="px-3 py-1 text-[10px] font-mono text-white/70 bg-white/5 border border-white/10 rounded-full group-hover:bg-blue-500/10 group-hover:border-blue-500/30 group-hover:text-blue-300 transition-colors duration-300 uppercase tracking-widest">
+                                    <div className="flex flex-wrap gap-1.5 md:gap-2 mt-auto">
+                                        {project.tags.slice(0, 2).map(tag => (
+                                            <span key={tag} className="px-2 md:px-3 py-0.5 md:py-1 text-[8px] md:text-[10px] font-mono text-white/70 bg-white/5 border border-white/10 rounded-full group-hover:bg-blue-500/10 group-hover:border-blue-500/30 group-hover:text-blue-300 transition-colors duration-300 uppercase tracking-widest">
                                                 {tag}
                                             </span>
                                         ))}
@@ -422,20 +422,24 @@ export default function ContentSection() {
                     >
                         My <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Achievements</span>
                     </motion.h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {achievements.map((item, i) => (
+                    <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto">
+                        {achievements.map((item, index) => (
                             <motion.div
-                                key={i}
+                                key={index}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
+                                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                                 onClick={() => setSelectedAchievement(item)}
-                                className="group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(234,179,8,0.05)] hover:-translate-y-2 h-full"
+                                className={`group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(234,179,8,0.05)] hover:-translate-y-2 h-full ${
+                                    index === achievements.length - 1 ? "col-span-2" : ""
+                                }`}
                             >
                                 {/* Padded Image Container for Modern Look */}
-                                <div className="p-3 pb-0">
-                                    <div className="h-56 md:h-48 relative overflow-hidden rounded-2xl bg-white/5">
+                                <div className="p-2 md:p-3 pb-0">
+                                    <div className={`relative overflow-hidden rounded-xl md:rounded-2xl bg-white/5 ${
+                                        index === achievements.length - 1 ? "h-64 md:h-80" : "h-32 md:h-48"
+                                    }`}>
                                         <Image
                                             src={item.image}
                                             alt={item.title}
@@ -448,18 +452,18 @@ export default function ContentSection() {
                                         <div className="absolute top-4 left-4 z-20 text-3xl md:text-4xl drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] filter transition-transform duration-300 group-hover:scale-110">
                                             {item.emoji}
                                         </div>
-
+ 
                                         <div className="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-full opacity-0 transform translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                             <ArrowUpRight className="w-4 h-4 text-white" />
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div className="flex flex-col flex-grow p-6 pt-5">
-                                    <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-yellow-400 transition-colors">
+                                <div className="flex flex-col flex-grow p-4 md:p-6 pt-5">
+                                    <h4 className="text-lg md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-yellow-400 transition-colors">
                                         {item.title}
                                     </h4>
-                                    <p className="text-white/50 text-sm leading-relaxed line-clamp-3">
+                                    <p className="text-white/50 text-xs md:text-sm leading-relaxed line-clamp-3">
                                         {item.description}
                                     </p>
                                 </div>
