@@ -274,25 +274,62 @@ export default function ContentSection() {
     return (
         <div className="relative z-10 bg-[#050505] text-white overflow-hidden pb-12" >
 
-            {/* Marquee Section */}
-            {/* Adjusted margin to move animation down as requested */}
-            <div className="w-full py-6 md:py-10 overflow-hidden border-y border-white/5 bg-white/[0.02] backdrop-blur-md mb-24 mt-24 relative z-20" >
-                <div className="flex whitespace-nowrap relative">
+            {/* Multi-Layered Cinematic Marquee Section */}
+            <div className="w-full py-16 md:py-24 overflow-hidden mb-12 mt-12 relative z-20 flex flex-col gap-8" >
+                
+                {/* Layer 1: Straight Forward */}
+                <div className="flex whitespace-nowrap relative border-y border-white/5 py-3 md:py-4 bg-white/[0.01]">
                     <motion.div
-                        className="flex gap-8 md:gap-16 text-xl md:text-5xl font-bold uppercase tracking-[0.2em] md:tracking-[0.4em] leading-none py-2"
+                        className="flex gap-12 md:gap-24 text-xs md:text-2xl font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] leading-none"
                         animate={{ x: ["0%", "-50%"] }}
                         transition={{
                             repeat: Infinity,
                             ease: "linear",
-                            duration: 30,
+                            duration: 50,
                         }}
                     >
-                        {[...Array(12)].map((_, i) => (
-                            <React.Fragment key={i}>
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                                    {marqueeText}
-                                </span>
-                            </React.Fragment>
+                        {[...Array(10)].map((_, i) => (
+                            <span key={i} className="text-white/20 whitespace-nowrap">
+                                {marqueeText}
+                            </span>
+                        ))}
+                    </motion.div>
+                </div>
+
+                {/* Layer 2: Slanted & Reverse */}
+                <div className="flex whitespace-nowrap relative py-3 md:py-4 -rotate-2 md:-rotate-3 scale-110 bg-blue-500/[0.03] border-y border-blue-500/10 z-10">
+                    <motion.div
+                        className="flex gap-12 md:gap-24 text-xs md:text-2xl font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] leading-none"
+                        animate={{ x: ["-50%", "0%"] }}
+                        transition={{
+                            repeat: Infinity,
+                            ease: "linear",
+                            duration: 70,
+                        }}
+                    >
+                        {[...Array(10)].map((_, i) => (
+                            <span key={i} className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400/40 via-purple-400/40 to-blue-400/40 whitespace-nowrap">
+                                {marqueeText}
+                            </span>
+                        ))}
+                    </motion.div>
+                </div>
+
+                {/* Layer 3: Straight Forward (Slightly Offset) */}
+                <div className="flex whitespace-nowrap relative border-y border-white/5 py-3 md:py-4 bg-white/[0.01]">
+                    <motion.div
+                        className="flex gap-12 md:gap-24 text-xs md:text-2xl font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] leading-none"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{
+                            repeat: Infinity,
+                            ease: "linear",
+                            duration: 60,
+                        }}
+                    >
+                        {[...Array(10)].map((_, i) => (
+                            <span key={i} className="text-white/10 whitespace-nowrap">
+                                {marqueeText}
+                            </span>
                         ))}
                     </motion.div>
                 </div>
