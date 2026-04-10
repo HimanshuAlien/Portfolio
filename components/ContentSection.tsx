@@ -180,22 +180,22 @@ const AchievementCard = ({ item, index, isLast, setSelectedAchievement }: { item
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Gallery Controls */}
+                {/* Gallery Controls - Desktop Overlay */}
                 {hasGallery && (
-                    <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 flex justify-between z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 hidden md:flex justify-between z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <button 
                             onClick={handlePrev} 
-                            className="p-2 md:p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white pointer-events-auto hover:bg-black/80 transition-all active:scale-90"
+                            className="p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white pointer-events-auto hover:bg-black/80 transition-all active:scale-90"
                             aria-label="Previous achievement"
                         >
-                            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+                            <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button 
                             onClick={handleNext} 
-                            className="p-2 md:p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white pointer-events-auto hover:bg-black/80 transition-all active:scale-90"
+                            className="p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white pointer-events-auto hover:bg-black/80 transition-all active:scale-90"
                             aria-label="Next achievement"
                         >
-                            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+                            <ChevronRight className="w-5 h-5" />
                         </button>
                     </div>
                 )}
@@ -203,13 +203,32 @@ const AchievementCard = ({ item, index, isLast, setSelectedAchievement }: { item
             
             <div className="flex flex-col flex-grow p-4 md:p-6 pt-5">
                 <div className="flex justify-between items-start mb-2">
-                    <h4 className="text-lg md:text-2xl font-bold text-white tracking-tight group-hover:text-yellow-400 transition-colors">
-                        {currentItem.title}
-                    </h4>
+                    <div className="flex-1">
+                        <h4 className="text-lg md:text-2xl font-bold text-white tracking-tight group-hover:text-yellow-400 transition-colors">
+                            {currentItem.title}
+                        </h4>
+                    </div>
                     {hasGallery && (
-                        <span className="text-[10px] font-mono text-yellow-500/50 uppercase tracking-tighter">
-                            {galleryIndex + 1} / {item.subItems.length}
-                        </span>
+                        <div className="flex items-center gap-3 ml-4">
+                            {/* Mobile Controls */}
+                            <div className="flex md:hidden items-center gap-2">
+                                <button 
+                                    onClick={handlePrev} 
+                                    className="p-1.5 rounded-full bg-white/5 border border-white/10 text-white active:bg-white/20"
+                                >
+                                    <ChevronLeft className="w-4 h-4" />
+                                </button>
+                                <button 
+                                    onClick={handleNext} 
+                                    className="p-1.5 rounded-full bg-white/5 border border-white/10 text-white active:bg-white/20"
+                                >
+                                    <ChevronRight className="w-4 h-4" />
+                                </button>
+                            </div>
+                            <span className="text-[10px] font-mono text-yellow-500/50 uppercase tracking-tighter shrink-0">
+                                {galleryIndex + 1} / {item.subItems.length}
+                            </span>
+                        </div>
                     )}
                 </div>
                 <p className="text-white/50 text-xs md:text-sm leading-relaxed line-clamp-3">
@@ -356,7 +375,7 @@ export default function ContentSection() {
                 { 
                     title: "SDIS Finalist", 
                     description: "Finalist in the Sustainable Development Innovation Summit Hackathon.",
-                    image: "", 
+                    image: "/achievements/hackathon-finalist-v2.jpeg", 
                     emoji: "🌱" 
                 },
             ],

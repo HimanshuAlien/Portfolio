@@ -15,7 +15,7 @@ export default function Header() {
             <nav className="bg-[#0a0a0a]/80 backdrop-blur-3xl border border-white/10 rounded-full px-3 md:px-6 py-2.5 md:py-3 pointer-events-auto transition-all duration-500 hover:border-white/20 hover:bg-[#0a0a0a]/90 shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-x-auto no-scrollbar mx-auto">
                 <ul className="flex items-center justify-center gap-1 md:gap-2">
                     {links.map((link) => (
-                        <li key={link.name}>
+                        <li key={link.name} className={link.name === "Home" ? "hidden md:block" : ""}>
                             <Link
                                 href={link.href}
                                 className="relative px-2.5 py-1.5 md:px-4 md:py-2 text-[8px] md:text-[11px] font-bold text-white/50 hover:text-white transition-all duration-300 uppercase tracking-[0.1em] md:tracking-[0.2em] group whitespace-nowrap rounded-full"
