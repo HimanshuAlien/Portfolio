@@ -203,14 +203,6 @@ export default function ContentSection() {
             link: "https://www.linkedin.com/posts/himanshu-mish21_icdcit-icdcithackathon2026-secondrunnersup-activity-7421523446880235520-Jgb3?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
         },
         {
-            title: "SIH 2025 Winner",
-            description: "Smart India Hackathon - First Prize in Agriculture Domain.",
-            fullDetails: "Led the team to victory in the nation-wide Smart India Hackathon. Developed 'KrishiSaathi', a comprehensive solution for farmers, praised for its practical application and user-friendly interface.",
-            emoji: "🥇",
-            image: "/achievements/sih-winner-v2.jpeg",
-            link: "https://www.linkedin.com/posts/himanshu-mish21_sih2025-smartindiahackathon-winner-activity-7405287430670540802-waXc?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
-        },
-        {
             title: "MLSA Hackathon Winner",
             description: "Winner of the Microsoft Learn Student Ambassadors (MLSA) Hackathon.",
             fullDetails: "Secured first place in the MLSA Hackathon by developing an outstanding and innovative project. Commended for technical excellence and rapid prototyping.",
@@ -233,6 +225,14 @@ export default function ContentSection() {
             emoji: "🎖️",
             image: "/achievements/khwaab-vp-v2.jpeg",
             link: "#"
+        },
+        {
+            title: "SIH 2025 Winner",
+            description: "Smart India Hackathon - First Prize in Agriculture Domain.",
+            fullDetails: "Led the team to victory in the nation-wide Smart India Hackathon. Developed 'KrishiSaathi', a comprehensive solution for farmers, praised for its practical application and user-friendly interface.",
+            emoji: "🥇",
+            image: "/achievements/sih-winner-v2.jpeg",
+            link: "https://www.linkedin.com/posts/himanshu-mish21_sih2025-smartindiahackathon-winner-activity-7405287430670540802-waXc?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAGDrjBABgsFEIQ-u1snsnzy0xJCjO8No7UA"
         },
     ];
 
@@ -276,20 +276,20 @@ export default function ContentSection() {
 
             {/* Marquee Section */}
             {/* Adjusted margin to move animation down as requested */}
-            <div className="w-full py-6 md:py-8 overflow-hidden border-y border-white/5 bg-white/5 backdrop-blur-sm mb-24 mt-24 relative z-20" >
-                <div className="flex whitespace-nowrap">
+            <div className="w-full py-6 md:py-10 overflow-hidden border-y border-white/5 bg-white/[0.02] backdrop-blur-md mb-24 mt-24 relative z-20" >
+                <div className="flex whitespace-nowrap relative">
                     <motion.div
-                        className="flex gap-12 text-2xl md:text-5xl font-bold uppercase tracking-widest leading-none"
-                        animate={{ x: [0, -1000] }}
+                        className="flex gap-8 md:gap-16 text-xl md:text-5xl font-bold uppercase tracking-[0.2em] md:tracking-[0.4em] leading-none py-2"
+                        animate={{ x: ["0%", "-50%"] }}
                         transition={{
                             repeat: Infinity,
                             ease: "linear",
-                            duration: 20,
+                            duration: 30,
                         }}
                     >
-                        {[...Array(8)].map((_, i) => (
+                        {[...Array(12)].map((_, i) => (
                             <React.Fragment key={i}>
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/90 to-white/50 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                                     {marqueeText}
                                 </span>
                             </React.Fragment>
