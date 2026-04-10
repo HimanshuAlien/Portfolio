@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
-import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail, Medal, Award, Crown, ArrowLeft, ArrowRight } from "lucide-react";
+import { Trophy, Code2, Cloud, ArrowUpRight, X, Mail, Medal, Award, Crown, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import LeetCodeStats from "./LeetCodeStats";
 
 // Real Logos from Devicon
@@ -103,6 +103,118 @@ const ToolCard = ({ tool, index }: { tool: any, index: number }) => {
                 <span className="text-[10px] md:text-sm font-medium text-white/50 group-hover:text-white transition-colors relative z-10">
                     {tool.name}
                 </span>
+            </div>
+        </motion.div>
+    );
+};
+
+const AchievementCard = ({ item, index, isLast, setSelectedAchievement }: { item: any, index: number, isLast: boolean, setSelectedAchievement: any }) => {
+    const [galleryIndex, setGalleryIndex] = React.useState(0);
+
+    const hasGallery = item.subItems && item.subItems.length > 0;
+    const currentItem = hasGallery ? item.subItems[galleryIndex] : item;
+
+    const handleNext = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (hasGallery) {
+            setGalleryIndex((prev) => (prev + 1) % item.subItems.length);
+        }
+    };
+
+    const handlePrev = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (hasGallery) {
+            setGalleryIndex((prev) => (prev - 1 + item.subItems.length) % item.subItems.length);
+        }
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+            onClick={() => setSelectedAchievement(currentItem)}
+            className={`group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(234,179,8,0.05)] hover:-translate-y-2 h-full ${
+                isLast ? "col-span-2" : ""
+            }`}
+        >
+            {/* Padded Image Container for Modern Look */}
+            <div className="p-2 md:p-3 pb-0 relative">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={galleryIndex}
+                        initial={{ x: 50, opacity: 0, scale: 0.95, skewX: -5 }}
+                        animate={{ x: 0, opacity: 1, scale: 1, skewX: 0 }}
+                        exit={{ x: -100, opacity: 0, scale: 0.9, skewX: 10 }}
+                        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                        className={`relative overflow-hidden rounded-xl md:rounded-2xl bg-[#111] ${
+                            isLast ? "h-64 md:h-80" : "h-40 md:h-48"
+                        }`}
+                    >
+                        {currentItem.image ? (
+                            <Image
+                                src={currentItem.image}
+                                alt={currentItem.title}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                unoptimized={currentItem.image.endsWith('.gif') || currentItem.image.includes('simpleicons')}
+                            />
+                        ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center bg-gradient-to-br from-white/5 to-white/[0.02]">
+                                <Medal className="w-12 h-12 text-yellow-500/50 mb-4 opacity-20" />
+                                <h5 className="text-sm md:text-xl font-bold text-white/40 uppercase tracking-widest">{currentItem.title}</h5>
+                                <p className="text-[10px] md:text-sm text-white/20 mt-2 font-mono">Official Certificate Coming Soon</p>
+                            </div>
+                        )}
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                        
+                        {/* Floating Emoji */}
+                        <div className="absolute top-4 left-4 z-20 text-3xl md:text-4xl drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] filter transition-transform duration-300 group-hover:scale-110">
+                            {currentItem.emoji || item.emoji}
+                        </div>
+
+                        <div className="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-full opacity-0 transform translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                            <ArrowUpRight className="w-4 h-4 text-white" />
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Gallery Controls */}
+                {hasGallery && (
+                    <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 flex justify-between z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button 
+                            onClick={handlePrev} 
+                            className="p-2 md:p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white pointer-events-auto hover:bg-black/80 transition-all active:scale-90"
+                            aria-label="Previous achievement"
+                        >
+                            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+                        </button>
+                        <button 
+                            onClick={handleNext} 
+                            className="p-2 md:p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white pointer-events-auto hover:bg-black/80 transition-all active:scale-90"
+                            aria-label="Next achievement"
+                        >
+                            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+                        </button>
+                    </div>
+                )}
+            </div>
+            
+            <div className="flex flex-col flex-grow p-4 md:p-6 pt-5">
+                <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-lg md:text-2xl font-bold text-white tracking-tight group-hover:text-yellow-400 transition-colors">
+                        {currentItem.title}
+                    </h4>
+                    {hasGallery && (
+                        <span className="text-[10px] font-mono text-yellow-500/50 uppercase tracking-tighter">
+                            {galleryIndex + 1} / {item.subItems.length}
+                        </span>
+                    )}
+                </div>
+                <p className="text-white/50 text-xs md:text-sm leading-relaxed line-clamp-3">
+                    {currentItem.description || item.description}
+                </p>
             </div>
         </motion.div>
     );
@@ -212,10 +324,42 @@ export default function ContentSection() {
         },
         {
             title: "Hackathon Finalist",
-            description: "Finalist in 6+ Major Hackathons including Cyber Peace.",
-            fullDetails: "Consistently ranked among the top teams in prestigious global hackathons. Demonstrated rapid prototyping skills and effective problem-solving under pressure.",
+            description: "Finalist in 6+ Major Hackathons globally.",
+            fullDetails: "Consistently ranked among the top teams in prestigious global hackathons. Demonstrated rapid prototyping skills and effective problem-solving under pressure in high-stakes environments.",
             emoji: "🥈",
             image: "/achievements/hackathon-finalist-v2.jpeg",
+            subItems: [
+                { 
+                    title: "Cyber Peace Finalist", 
+                    description: "Global Cyber Peace Challenge Finalist - Ranked among top security research teams.",
+                    image: "/achievements/Cyberpeace.jpg",
+                    emoji: "🛡️"
+                },
+                { 
+                    title: "India-Israel Hackathon", 
+                    description: "Selected as Finalist in the prestigious Bilateral Innovation Challenge.",
+                    image: "", // Placeholder for certificate
+                    emoji: "🇮🇳" 
+                },
+                { 
+                    title: "Meta X Finalist", 
+                    description: "Finalist in the Meta PyTorch Hackathon for AI-driven safety solutions.",
+                    image: "", 
+                    emoji: "♾️" 
+                },
+                { 
+                    title: "Deloitte Hackathon", 
+                    description: "Recognized as a Finalist in Deloitte's National Innovation Challenge.",
+                    image: "", 
+                    emoji: "📊" 
+                },
+                { 
+                    title: "SDIS Finalist", 
+                    description: "Finalist in the Sustainable Development Innovation Summit Hackathon.",
+                    image: "", 
+                    emoji: "🌱" 
+                },
+            ],
             link: "#"
         },
         {
@@ -461,50 +605,7 @@ export default function ContentSection() {
                     </motion.h3>
                     <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto">
                         {achievements.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-                                onClick={() => setSelectedAchievement(item)}
-                                className={`group flex flex-col bg-[#080808] border border-white/10 hover:border-white/30 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-[0_0_30px_rgba(234,179,8,0.05)] hover:-translate-y-2 h-full ${
-                                    index === achievements.length - 1 ? "col-span-2" : ""
-                                }`}
-                            >
-                                {/* Padded Image Container for Modern Look */}
-                                <div className="p-2 md:p-3 pb-0">
-                                    <div className={`relative overflow-hidden rounded-xl md:rounded-2xl bg-white/5 ${
-                                        index === achievements.length - 1 ? "h-64 md:h-80" : "h-32 md:h-48"
-                                    }`}>
-                                        <Image
-                                            src={item.image}
-                                            alt={item.title}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
-                                        
-                                        {/* Floating Emoji */}
-                                        <div className="absolute top-4 left-4 z-20 text-3xl md:text-4xl drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] filter transition-transform duration-300 group-hover:scale-110">
-                                            {item.emoji}
-                                        </div>
- 
-                                        <div className="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-full opacity-0 transform translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                            <ArrowUpRight className="w-4 h-4 text-white" />
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div className="flex flex-col flex-grow p-4 md:p-6 pt-5">
-                                    <h4 className="text-lg md:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-yellow-400 transition-colors">
-                                        {item.title}
-                                    </h4>
-                                    <p className="text-white/50 text-xs md:text-sm leading-relaxed line-clamp-3">
-                                        {item.description}
-                                    </p>
-                                </div>
-                            </motion.div>
+                            <AchievementCard key={index} item={item} index={index} isLast={index === achievements.length - 1} setSelectedAchievement={setSelectedAchievement} />
                         ))}
                     </div>
                 </section>
