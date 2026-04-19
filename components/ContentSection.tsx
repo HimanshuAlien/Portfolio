@@ -157,7 +157,7 @@ const AchievementCard = ({ item, index, isLast, setSelectedAchievement }: { item
                                 src={currentItem.image}
                                 alt={currentItem.title}
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                className={`${currentItem.image.includes('simpleicons') ? 'object-contain p-8' : 'object-cover md:object-contain'} transition-transform duration-700 group-hover:scale-105`}
                                 unoptimized={currentItem.image.endsWith('.gif') || currentItem.image.includes('simpleicons')}
                             />
                         ) : (
@@ -357,19 +357,25 @@ export default function ContentSection() {
                 { 
                     title: "India-Israel Hackathon", 
                     description: "Selected as Finalist in the prestigious Bilateral Innovation Challenge.",
-                    image: "", // Placeholder for certificate
+                    image: "/achievements/Screenshot 2026-04-19 161346.png",
                     emoji: "🇮🇳" 
                 },
                 { 
-                    title: "Meta X Finalist", 
+                    title: "Meta Hackathon", 
                     description: "Finalist in the Meta PyTorch Hackathon for AI-driven safety solutions.",
-                    image: "", 
+                    image: "/achievements/meta.jpeg", 
+                    emoji: "" 
+                },
+                { 
+                    title: "Guidewire Trails Hackathon", 
+                    description: "Recognized as a Finalist in the Guidewire Trails Hackathon.",
+                    image: "/achievements/guidewire.jpeg", 
                     emoji: "" 
                 },
                 { 
                     title: "Deloitte Hackathon", 
                     description: "Recognized as a Finalist in Deloitte's National Innovation Challenge.",
-                    image: "", 
+                    image: "https://cdn.simpleicons.org/deloitte/white", 
                     emoji: "" 
                 },
                 { 
