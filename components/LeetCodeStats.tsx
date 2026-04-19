@@ -137,18 +137,18 @@ export default function LeetCodeStats() {
             </div>
 
             {/* Solved Grid */}
-            <div className="grid grid-cols-3 gap-4 relative z-10 mb-8">
-                <div className="flex flex-col items-center p-3 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm">
-                    <span className="text-emerald-400 font-bold text-xl">{stats?.easySolved}</span>
-                    <span className="text-white/30 text-xs uppercase mt-1">Easy</span>
+            <div className="grid grid-cols-3 gap-2 relative z-10 mb-4">
+                <div className="flex flex-col items-center p-2 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm">
+                    <span className="text-emerald-400 font-bold text-lg">{stats?.easySolved}</span>
+                    <span className="text-white/30 text-[10px] uppercase mt-0.5">Easy</span>
                 </div>
-                <div className="flex flex-col items-center p-3 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm">
-                    <span className="text-yellow-400 font-bold text-xl">{stats?.mediumSolved}</span>
-                    <span className="text-white/30 text-xs uppercase mt-1">Med</span>
+                <div className="flex flex-col items-center p-2 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm">
+                    <span className="text-yellow-400 font-bold text-lg">{stats?.mediumSolved}</span>
+                    <span className="text-white/30 text-[10px] uppercase mt-0.5">Med</span>
                 </div>
-                <div className="flex flex-col items-center p-3 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm">
-                    <span className="text-red-400 font-bold text-xl">{stats?.hardSolved}</span>
-                    <span className="text-white/30 text-xs uppercase mt-1">Hard</span>
+                <div className="flex flex-col items-center p-2 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm">
+                    <span className="text-red-400 font-bold text-lg">{stats?.hardSolved}</span>
+                    <span className="text-white/30 text-[10px] uppercase mt-0.5">Hard</span>
                 </div>
             </div>
 
@@ -161,7 +161,7 @@ export default function LeetCodeStats() {
 
                 {stats?.submissionCalendar ? (
                     <div className="flex gap-1 overflow-x-hidden pb-1">
-                        <div className="grid grid-rows-7 grid-flow-col gap-1 w-full relative">
+                        <div className="grid grid-rows-7 grid-flow-col gap-[2px] w-full relative">
                             {heatmapData.map((day, i) => {
                                 let colorClass = 'bg-white/5';
                                 if (day.count > 0) colorClass = 'bg-green-900/40';
@@ -172,7 +172,7 @@ export default function LeetCodeStats() {
                                 return (
                                     <div
                                         key={i}
-                                        className={`w-2 h-2 rounded-sm ${colorClass}`}
+                                        className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-[1px] ${colorClass}`}
                                         title={`${day.date.toDateString()}: ${day.count} submissions`}
                                     />
                                 )
@@ -184,29 +184,33 @@ export default function LeetCodeStats() {
                 )}
             </div>
 
-            {/* Latest Solved (Single Detailed Item) */}
-            <div className="relative z-10 flex-1 border-t border-white/5 pt-3">
+            {/* Latest Solved (Two Detailed Items) */}
+            <div className="relative z-10 flex-1 border-t border-white/5 pt-3 mt-4">
                 <h5 className="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-2 flex items-center gap-2">
-                    Latest Solved <Zap className="w-3 h-3 text-yellow-500" />
+                    Recently Solved <Zap className="w-3 h-3 text-yellow-500" />
                 </h5>
                 {stats?.recentSubmissions && stats.recentSubmissions.length > 0 ? (
-                    <div className="flex items-center justify-between group/item p-2 bg-white/5 rounded-lg border border-white/5 hover:border-emerald-500/30 transition-colors">
-                        <div className="flex items-center gap-3 overflow-hidden">
-                            <div className="p-1.5 bg-emerald-500/10 rounded-md shrink-0">
-                                <BadgeCheck className="w-3.5 h-3.5 text-emerald-400" />
-                            </div>
-                            <div className="flex flex-col truncate">
-                                <span className="text-xs font-medium text-white/90 truncate">
-                                    {stats.recentSubmissions[0].title}
+                    <div className="flex flex-col gap-2">
+                        {stats.recentSubmissions.slice(0, 2).map((sub, idx) => (
+                            <div key={idx} className="flex items-center justify-between group/item p-1.5 md:p-2 bg-white/5 rounded-lg border border-white/5 hover:border-emerald-500/30 transition-colors">
+                                <div className="flex items-center gap-2 md:gap-3 overflow-hidden">
+                                    <div className="p-1 md:p-1.5 bg-emerald-500/10 rounded-md shrink-0">
+                                        <BadgeCheck className="w-3 h-3 text-emerald-400" />
+                                    </div>
+                                    <div className="flex flex-col truncate">
+                                        <span className="text-[10px] md:text-xs font-medium text-white/90 truncate">
+                                            {sub.title}
+                                        </span>
+                                        <span className="text-[8px] md:text-[10px] text-white/40 font-mono">
+                                            {sub.timestamp ? new Date(parseInt(sub.timestamp) * 1000).toLocaleDateString() : 'Just now'}
+                                        </span>
+                                    </div>
+                                </div>
+                                <span className="text-[8px] md:text-[10px] uppercase font-bold text-white/50 bg-white/5 px-1.5 py-0.5 md:px-2 md:py-1 rounded">
+                                    {sub.lang}
                                 </span>
-                                <span className="text-[10px] text-white/40 font-mono">
-                                    {stats.recentSubmissions[0].timestamp ? new Date(parseInt(stats.recentSubmissions[0].timestamp) * 1000).toLocaleDateString() : 'Just now'}
-                                </span>
                             </div>
-                        </div>
-                        <span className="text-[10px] uppercase font-bold text-white/50 bg-white/5 px-2 py-1 rounded">
-                            {stats.recentSubmissions[0].lang}
-                        </span>
+                        ))}
                     </div>
                 ) : (
                     <div className="text-[10px] text-white/30 italic">No recent activity.</div>
