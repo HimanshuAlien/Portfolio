@@ -157,7 +157,7 @@ const AchievementCard = ({ item, index, isLast, setSelectedAchievement }: { item
                                 src={currentItem.image}
                                 alt={currentItem.title}
                                 fill
-                                className={`${currentItem.image.includes('simpleicons') ? 'object-contain p-8' : 'object-cover md:object-contain'} transition-transform duration-700 group-hover:scale-105`}
+                                className={`${currentItem.image.includes('simpleicons') ? 'object-contain p-4 md:p-8 bg-white/5' : 'object-cover'} transition-transform duration-700 group-hover:scale-105`}
                                 unoptimized={currentItem.image.endsWith('.gif') || currentItem.image.includes('simpleicons')}
                             />
                         ) : (
